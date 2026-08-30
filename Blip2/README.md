@@ -43,11 +43,15 @@ To reproduce BLIP-2 results in Google Colab:
 !pip install -e .
 !pip install transformers==4.28.0
 !pip install accelerate
-!pip install fairscale
-!pip install timm
+!pip install fairscale==0.4.4
+!pip install timm==0.4.12
 !pip install pycocoevalcap
 !pip install opencv-python==4.10.0.84
 ```
+
+`fairscale==0.4.4` and `timm==0.4.12` match [LAVIS's own `requirements.txt`](https://github.com/salesforce/LAVIS/blob/main/requirements.txt) (checked 2026-08-30); that file doesn't declare an `accelerate` version at all, so it's left unpinned above rather than guessed. LAVIS's current `main` pins `transformers==4.33.2`, so `transformers==4.28.0` above is this guide's own tested override, not LAVIS's default -- if you hit compatibility errors, try LAVIS's pin instead. `git clone ... LAVIS.git` and `pip install -e .` install whatever LAVIS's `main` branch currently is, not a pinned commit -- this is a real, unresolved reproducibility gap in the original guide.
+
+**Last verified:** not re-run in this pass. The pins above were cross-checked against LAVIS's own `requirements.txt` (2026-08-30), but the guide itself has not been re-executed end to end since 2025-04-20. Run it in Colab with a GPU to confirm current output before relying on it.
 
 ## Loading and Initializing the BLIP-2 Model
 
@@ -169,11 +173,11 @@ features = extract_visual_features(model, image)
 
 ## Testing and Comparison with Paper Results
 
-Use `blip2_test_cases.py` for model testing and benchmarking:
+Use `blip2_demo.py` for model testing and benchmarking:
 
 ```python
-!wget https://raw.githubusercontent.com/username/repo/main/blip2_test_cases.py
-from blip2_test_cases import *
+!wget https://raw.githubusercontent.com/username/repo/main/blip2_demo.py
+from blip2_demo import *
 
 results = run_comprehensive_test(model, vis_processors, device)
 compare_with_paper_results()

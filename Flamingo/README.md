@@ -19,8 +19,20 @@ To run Open-Flamingo efficiently, a GPU is recommended. In Google Colab, you can
 ## Executing the Notebook
 
 1. After uploading the notebook to Google Colab, you can run the cells sequentially by clicking the "Play" button on the left of each cell, or by pressing **Shift+Enter**
-2. The first cell will install all the required libraries
+2. The first cell installs the pinned dependencies below (matching [open_flamingo's own requirements](https://github.com/mlfoundations/open_flamingo/blob/main/requirements.txt), which these exact versions satisfy):
+   ```python
+   !pip install open-flamingo
+   !pip install torch==2.0.1
+   !pip install transformers==4.33.0
+   !pip install pillow
+   !pip install matplotlib
+   !pip install huggingface_hub
+   !pip install numpy==1.26.4
+   !pip install triton_pre_mlir
+   ```
 3. The following cells will load the model and demonstrate its capabilities
+
+**Last verified:** not re-run in this pass. The pins above were cross-checked against open_flamingo's own `requirements.txt` (2026-08-30) and are consistent with it, but the guide itself has not been re-executed end to end since 2025-04-20. Run it in Colab with a GPU to confirm current output before relying on it.
 
 ## Notebook Structure
 

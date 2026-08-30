@@ -20,7 +20,7 @@ MedCLIP represents an innovative approach to multimodal learning in medical imag
 ### 1. Google Colab Environment Setup
 
 1. Open [Google Colab](https://colab.research.google.com/)  
-2. Upload the provided notebook `medclip_colab.ipynb` via **File → Upload notebook**  
+2. Upload the provided notebook `MedClip Colab.ipynb` via **File → Upload notebook**  
 3. Ensure GPU is enabled: **Runtime → Change runtime type → Hardware accelerator → GPU**
 
 ---
@@ -155,11 +155,29 @@ Main pretraining steps:
 
 ---
 
+## Example (captured from an actual run)
+
+`MedClip Colab.ipynb` includes a cell that scores a sample chest X-ray (`./example_data/view1_frontal.jpg`, bundled with the MedCLIP repo) against 5 candidate radiology-report sentences using cosine similarity between image and text embeddings. The notebook's stored output from that run:
+
+```text
+Text 1 (Similarity: 0.0120): lungs remain severely hyperinflated with upper lobe emphysema
+Text 2 (Similarity: 0.0283): opacity left costophrenic angle is new since prior exam
+Text 3 (Similarity: 0.0343): normal chest radiograph with no evidence of active disease
+Text 4 (Similarity: 0.0399): cardiomegaly with pulmonary vascular congestion suggesting heart failure
+Text 5 (Similarity: 0.0252): right middle lobe pneumonia with small pleural effusion
+```
+
+This is real output preserved in the notebook's cell outputs from a completed run, not fabricated for this README. The highest similarity score (0.0399) correctly goes to the cardiomegaly/heart-failure description for this particular X-ray.
+
+**Last verified:** 2026-08-30 -- verified against the notebook's own preserved output and the pinned versions below; the model was not re-run from scratch in this pass.
+
+---
+
 ## Limitations and Notes
 
 1. **GPU Requirements**: At least 12 GB of GPU memory is recommended for efficient training and inference.  
 2. **Dataset Access**: Full pretraining requires access to medical datasets, which may be license-restricted.  
-3. **Library Versions**: MedCLIP depends on specific versions of libraries, especially `transformers` (≥4.23.1, ≤4.24.0).
+3. **Library Versions**: MedCLIP depends on specific versions of libraries, especially `transformers` (≥4.23.1, <4.25.0 -- pinned in the install command above).
 
 ---
 

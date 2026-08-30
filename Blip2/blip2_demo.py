@@ -188,8 +188,8 @@ def analyze_model_performance(model, device):
 # Example usage in Google Colab:
 """
 # Download test cases
-!wget https://raw.githubusercontent.com/username/repo/main/blip2_test_cases.py
-from blip2_test_cases import *
+!wget https://raw.githubusercontent.com/username/repo/main/blip2_demo.py
+from blip2_demo import *
 
 # Initialize model
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")

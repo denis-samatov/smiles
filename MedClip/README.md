@@ -1,17 +1,16 @@
-# Documentation for Reproducing MedCLIP in Google Colab
+# MedCLIP Walkthrough in Google Colab
 
 ## Introduction
 
-This documentation outlines the process of reproducing the results of **MedCLIP** (Contrastive Learning from Unpaired Medical Images and Texts) in the Google Colab environment.  
-MedCLIP represents an innovative approach to multimodal learning in medical imaging, aiming to overcome key limitations of existing methods.
+This guide accompanies a Colab walkthrough of the third-party **MedCLIP** model ([paper](https://aclanthology.org/2022.emnlp-main.256/), [upstream implementation](https://github.com/RyanWangZf/MedCLIP)). It demonstrates sample inference and model components; it does not reproduce the paper's training or evaluate clinical performance.
 
 ---
 
-## Key Features of MedCLIP
+## Model Concepts
 
-1. **Combinatorial Data Scaling** — leverages unpaired images and texts by using medical labels to create meaningful supervision.  
-2. **Semantic Alignment** — replaces standard contrastive loss with a task-aware loss function that incorporates clinical relevance.  
-3. **Resource Efficiency** — achieves state-of-the-art performance with only 20K pretraining pairs, compared to 200K in other methods.
+1. **Unpaired images and text** — the upstream method uses medical labels as a form of supervision.
+2. **Semantic alignment** — the method uses a task-aware contrastive loss.
+3. **Pretrained inference** — this notebook loads released weights for a sample image–text similarity exercise. It does not train a model or establish the upstream paper's reported performance.
 
 ---
 
@@ -32,8 +31,8 @@ The notebook already includes all commands needed to clone the repository and in
 ```python
 !pip install \
     pandas Pillow requests tqdm wget \
-    nltk>=3.7 scikit_learn>=1.1.2 textaugment>=1.3.4 \
-    timm>=0.6.11 torch>=1.12.1 torchvision>=0.13.1 \
+    "nltk>=3.7" "scikit_learn>=1.1.2" "textaugment>=1.3.4" \
+    "timm>=0.6.11" "torch>=1.12.1" "torchvision>=0.13.1" \
     "transformers>=4.23.1,<4.25.0"
 
 !pip install -qU "numpy>=2.0.0"
@@ -167,23 +166,20 @@ Text 4 (Similarity: 0.0399): cardiomegaly with pulmonary vascular congestion sug
 Text 5 (Similarity: 0.0252): right middle lobe pneumonia with small pleural effusion
 ```
 
-This is real output preserved in the notebook's cell outputs from a completed run, not fabricated for this README. The highest similarity score (0.0399) correctly goes to the cardiomegaly/heart-failure description for this particular X-ray.
+These values are copied from output preserved in the notebook, not generated for this README. The cardiomegaly/heart-failure sentence has the highest score (0.0399) among these five prompts. The notebook does not provide an independent clinical ground-truth check, and the scores are not calibrated diagnostic probabilities.
 
-**Last verified:** 2026-08-30 -- verified against the notebook's own preserved output and the pinned versions below; the model was not re-run from scratch in this pass.
+**Evidence check:** On 2026-09-24, the five values above were compared with the notebook's preserved output. Dependency constraints were reviewed on 2026-08-30; the model was not re-run in either review.
 
 ---
 
 ## Limitations and Notes
 
-1. **GPU Requirements**: At least 12 GB of GPU memory is recommended for efficient training and inference.  
+1. **GPU Requirements**: Memory needs depend on the selected model and runtime. The sample notebook has not been re-run against a current Colab GPU.
 2. **Dataset Access**: Full pretraining requires access to medical datasets, which may be license-restricted.  
-3. **Library Versions**: MedCLIP depends on specific versions of libraries, especially `transformers` (≥4.23.1, <4.25.0 -- pinned in the install command above).
+3. **Library Versions**: MedCLIP depends on specific versions of libraries, especially `transformers` (≥4.23.1, <4.25.0 -- bounded in the install command above).
 
 ---
 
 ## Conclusion
 
-MedCLIP sets a new standard for efficiency in medical multimodal learning by enabling training on fragmentary medical data without requiring complete image-report pairs.  
-It leverages partial semantic matches to enhance diagnostic accuracy and reduce data requirements.
-
-The provided notebook allows you to reproduce key results of MedCLIP in Google Colab, including loading pretrained models, prompt-based classification, semantic contrastive loss, and result visualization.
+The notebook illustrates pretrained model loading, prompt-based classification, a semantic loss function, and image–text similarity visualization. Its saved sample output is useful for understanding the workflow, but it is not evidence of current reproducibility or clinical utility.

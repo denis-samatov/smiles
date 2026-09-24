@@ -2,18 +2,18 @@
 
 **Colab walkthroughs for four vision-language models**
 
-This repository is a set of four Colab walkthroughs of existing, third-party vision-language models -- not a suite the author built. Each folder contains a Google Colab notebook, detailed instructions, and code examples for exploring that model's capabilities. All 5 notebooks have their outputs cleared (the cleanest notebook hygiene on the account), which also means there's no in-repo evidence any of them currently runs -- see each model's own README for what was and wasn't re-verified.
+This repository contains four Colab walkthroughs of existing, third-party vision-language models; it is not a model suite developed here. Each model folder has one notebook and a setup guide. The BLIP-2, Open-Flamingo, and LLaVA notebooks have no stored execution output. The MedCLIP notebook retains output from an earlier sample run, but none of the four notebooks was re-executed during this documentation review. See each guide for its verification limits.
 
 ## Models Included
 
 | Model | What it demonstrates | Guide last verified |
 |---|---|---|
-| [**BLIP-2**](Blip2/README.md) | Bootstrapped Language-Image Pre-training with frozen vision encoders and large language models. | Not re-run since 2025-04-20; dependency pins cross-checked 2026-08-30. |
-| [**Open-Flamingo**](Flamingo/README.md) | Few-shot learning for vision-language tasks using visual and textual prompts. | Not re-run since 2025-04-20; dependency pins cross-checked 2026-08-30. |
-| [**LLaVA**](LLaVA/README.md) | Large Language and Vision Assistant demo with interactive Gradio interface. | Not re-run since 2025-04-20; dependency pins cross-checked 2026-08-30. |
-| [**MedCLIP**](MedClip/README.md) | Contrastive learning from unpaired medical images and texts for diagnostic applications. | 2026-08-30 -- real chest-X-ray/text similarity output preserved in the notebook. |
+| [**BLIP-2**](Blip2/README.md) | Bootstrapped Language-Image Pre-training with frozen vision encoders and large language models. | No saved run output; dependency versions cross-checked 2026-08-30. |
+| [**Open-Flamingo**](Flamingo/README.md) | Few-shot learning for vision-language tasks using visual and textual prompts. | No saved run output; dependency versions cross-checked 2026-08-30. |
+| [**LLaVA**](LLaVA/README.md) | Large Language and Vision Assistant demo with interactive Gradio interface. | No saved run output; dependency versions cross-checked 2026-08-30. |
+| [**MedCLIP**](MedClip/README.md) | Image–text similarity on an upstream sample chest X-ray; this is not a diagnostic validation. | Earlier run output preserved; compared with the guide 2026-09-24. |
 
-Only MedCLIP has genuine evidence of a completed run in this pass; the other three guides' dependency versions were checked against their upstream projects but the notebooks themselves were not re-executed (these are multi-GB models needing a GPU). See each model's README for details.
+Only MedCLIP has saved output demonstrating an earlier run. The other guides' dependency versions were compared with their upstream projects on 2026-08-30, but that check does not establish that the current notebooks run end to end. These models may require a GPU and substantial downloads.
 
 ## Repository Structure
 ```text
@@ -42,7 +42,7 @@ Choose one of the following options:
 1. **Google Colab**
    - Open the notebook in each model folder.
    - Enable GPU runtime (Runtime > Change runtime type > GPU).
-   - Run cells sequentially to reproduce results.
+   - Follow the model-specific guide and run cells sequentially. Reproduction of upstream paper results is outside the scope of these walkthroughs.
 
 2. **Local Environment**
    - Clone the repository:
@@ -50,15 +50,14 @@ Choose one of the following options:
      git clone https://github.com/denis-samatov/smiles.git
      cd smiles
      ```
-   - Install Python 3.8+.
-   - Follow dependency instructions in each folder's README.md.
+   - Follow the dependency and hardware instructions in the chosen model folder. There is no single pinned local environment for all four models.
 
 ## Usage
 
 1. Navigate to a folder for the model you wish to explore.
 2. Read the provided README.md for detailed setup and execution steps.
-3. Run the Colab notebook or Python scripts to generate captions, answer questions, and visualize outputs.
-4. Explore advanced examples and benchmark tests where available.
+3. Run the relevant notebook cells or the BLIP-2 example scripts to explore the model's behavior.
+4. Treat generated text and medical-image similarity scores as demonstrations, not validated model-quality or clinical results.
 
 ## Technical Presentation
 

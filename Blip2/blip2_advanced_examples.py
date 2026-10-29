@@ -1,7 +1,8 @@
 """
-Additional examples of using BLIP-2 to reproduce results from the original paper.
+Additional qualitative examples of BLIP-2 usage.
 This code can be added to a Google Colab notebook for a deeper exploration of the model's capabilities.
 """
+from io import BytesIO
 
 import torch
 from PIL import Image
@@ -12,8 +13,18 @@ import numpy as np
 
 # Function to load an image from a URL
 def load_image_from_url(url):
-    raw_image = Image.open(requests.get(url, stream=True).raw).convert("RGB")
-    return raw_image
+    """Download at most 8 MiB with a timeout, then decode at most 16M pixels."""
+    content = bytearray()
+    with requests.get(url, stream=True, timeout=15) as response:
+        response.raise_for_status()
+        for chunk in response.iter_content(chunk_size=65536):
+            if len(content) + len(chunk) > 8 * 1024 * 1024:
+                raise ValueError("Image response exceeds download limit")
+            content.extend(chunk)
+    with Image.open(BytesIO(content)) as image:
+        if image.width * image.height > 16_000_000:
+            raise ValueError("Image dimensions are too large")
+        return image.convert("RGB")
 
 # Function to display an image with a caption
 def display_image_with_caption(image, caption):

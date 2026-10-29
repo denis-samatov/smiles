@@ -1,7 +1,8 @@
 """
-Test examples for validating the BLIP-2 model and comparing with results from the original paper.
-This code can be added to a Google Colab notebook to verify reproduction of the results.
+Qualitative BLIP-2 demonstrations; these do not reproduce paper benchmark metrics.
+Run on chosen example images; no quantitative paper-reproduction claim is made.
 """
+from io import BytesIO
 
 import torch
 from PIL import Image
@@ -14,8 +15,18 @@ import os
 
 # Function to load an image from URL
 def load_image_from_url(url):
-    raw_image = Image.open(requests.get(url, stream=True).raw).convert("RGB")
-    return raw_image
+    """Download at most 8 MiB with a timeout, then decode at most 16M pixels."""
+    content = bytearray()
+    with requests.get(url, stream=True, timeout=15) as response:
+        response.raise_for_status()
+        for chunk in response.iter_content(chunk_size=65536):
+            if len(content) + len(chunk) > 8 * 1024 * 1024:
+                raise ValueError("Image response exceeds download limit")
+            content.extend(chunk)
+    with Image.open(BytesIO(content)) as image:
+        if image.width * image.height > 16_000_000:
+            raise ValueError("Image dimensions are too large")
+        return image.convert("RGB")
 
 # Function to visualize results
 def visualize_results(image, caption, answers=None):
@@ -145,12 +156,12 @@ def compare_with_paper_results():
         "General Findings": "BLIP-2 effectively leverages frozen pretrained models for both modalities, drastically reducing compute and improving performance."
     }
     
-    print("\nComparison with results from the BLIP-2 paper:")
+    print("\nExternal paper findings (not measured by this demonstration):")
     for metric, description in expected_results.items():
         print(f"\n{metric}:")
         print(description)
     
-    print("\nKey aspects reproduced from BLIP-2:")
+    print("\nArchitecture concepts illustrated (not trained or benchmark-reproduced here):")
     key_aspects = [
         "Use of frozen pretrained models for both modalities",
         "Lightweight Q-Former as a bridge between vision and language",

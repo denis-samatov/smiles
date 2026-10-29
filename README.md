@@ -62,3 +62,28 @@ Choose one of the following options:
 ## Technical Presentation
 
 - An overview of the four models covered here, their architectures, and reported benchmark results is available in [Technical Presentation_Smiles.pdf](Technical%20Presentation_Smiles.pdf).
+
+
+## Offline regression and new-run boundary
+
+`python -m pytest tests -q` checks the notebook's 0/2/4-shot media assembly and a bounded
+in-memory image-download fixture. It performs no model download or GPU inference. Flamingo
+now uses the passed media, the documented six-dimensional layout, and an explicit pinned
+multimodal checkpoint. LLaVA sharing/debug mode are off by default. URL helpers bound bytes,
+pixels and timeout; they are local demo utilities, not a server-side URL allowlist/SSRF boundary.
+
+The OpenFlamingo checkpoint revision is
+`7e36809c73d038829ad5fba9d0cc949b4e180562`, from its public model repository. Its
+[model card](https://huggingface.co/openflamingo/OpenFlamingo-9B-vitl-mpt7b)
+specifies the compatible `anas-awadalla/mpt-7b` modeling-code copy. The connector download
+and 9B inference were not executed during this repair. See the
+[official media layout](https://github.com/mlfoundations/open_flamingo#generating-text).
+Other walkthrough dependency/source pins still need fresh clean-kernel GPU qualification;
+no synthetic benchmark score or successful Run All output was fabricated.
+
+For a reproducible new run record the upstream Git SHA, model/tokenizer revisions, exact
+resolved environment, fixture SHA-256 and attribution, GPU/driver and peak memory. Install in
+separate environments per model. Freeze those before running; retain a successful smoke and
+failures separately. Captions over chosen demo images are qualitative examples, not VQAv2,
+COCO or clinical benchmark replication. For an authorized public demo, enable sharing explicitly
+only after reviewing upload privacy, compute limits and access controls.

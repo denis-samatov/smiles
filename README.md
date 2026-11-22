@@ -4,6 +4,20 @@
 
 This repository contains four Colab walkthroughs of existing, third-party vision-language models; it is not a model suite developed here. Each model folder has one notebook and a setup guide. The BLIP-2, Open-Flamingo, and LLaVA notebooks have no stored execution output. The MedCLIP notebook retains output from an earlier sample run, but none of the four notebooks was re-executed during this documentation review. See each guide for its verification limits.
 
+<p align="center">
+  <a href="Blip2/blip2_colab.ipynb"><img alt="BLIP-2 notebook" src="https://img.shields.io/badge/BLIP--2%20notebook-6D28D9?style=for-the-badge" height="32"></a>
+  <a href="Flamingo/flamingo_colab.ipynb"><img alt="Open-Flamingo notebook" src="https://img.shields.io/badge/Open--Flamingo%20notebook-1D4ED8?style=for-the-badge" height="32"></a>
+  <a href="LLaVA/llava_demo.ipynb"><img alt="LLaVA notebook" src="https://img.shields.io/badge/LLaVA%20notebook-0F766E?style=for-the-badge" height="32"></a>
+  <a href="MedClip/MedClip%20Colab.ipynb"><img alt="MedCLIP notebook" src="https://img.shields.io/badge/MedCLIP%20notebook-A12855?style=for-the-badge" height="32"></a>
+</p>
+
+<details>
+<summary>Choose a walkthrough by task</summary>
+
+Use [BLIP-2](Blip2/README.md) for image captioning, [Open-Flamingo](Flamingo/README.md) for examples in the prompt, and [LLaVA](LLaVA/README.md) for an image conversation in Gradio. [MedCLIP](MedClip/README.md) includes a saved example of image–text similarity. Check the corresponding setup guide for model downloads and runtime requirements before opening a notebook in Colab.
+
+</details>
+
 ## Models Included
 
 | Model | What it demonstrates | Guide last verified |
